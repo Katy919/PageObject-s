@@ -30,8 +30,7 @@ public class DashboardPage {
     }
 
     public TransferPage selectCard(DataHelper.CardInfo cardInfo) {
-        getCardElement(cardInfo).$("button")
-                .click();
+        getCardElement(cardInfo).$("button").click();
         return new TransferPage();
     }
 
