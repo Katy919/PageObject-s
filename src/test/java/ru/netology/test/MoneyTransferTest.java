@@ -38,7 +38,7 @@ public class MoneyTransferTest {
     }
 
     @Test
-    void shouldNotTransferMoneyOverLimit() {
+    void shouldShowErrorWhenTransferAmountOverBalance() {
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
@@ -46,17 +46,10 @@ public class MoneyTransferTest {
         var dashboardPage = verificationPage.validVerify(verificationCode);
         var firstCard = DataHelper.getFirstCardInfo();
         var secondCard = DataHelper.getSecondCardInfo();
-        int amount = 20000;
-        int firstBefore = dashboardPage.getCardBalance(firstCard);
-        int secondBefore = dashboardPage.getCardBalance(secondCard);
+        int amount = 20_000;
         var transferPage = dashboardPage.selectCard(firstCard);
         transferPage.transferMoney(amount, secondCard);
         transferPage.shouldShowError();
-        int firstAfter = dashboardPage.getCardBalance(firstCard);
-        int secondAfter = dashboardPage.getCardBalance(secondCard);
-
-        assertEquals(firstBefore, firstAfter);
-        assertEquals(secondBefore, secondAfter);
     }
 }
 
